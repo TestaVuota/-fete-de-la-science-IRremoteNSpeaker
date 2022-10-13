@@ -13,7 +13,7 @@
 ## Other Sources:
 - [tone melodies](https://www.arduino.cc/en/Tutorial/BuiltInExamples/toneMelody)
 - [builtin example](https://docs.arduino.cc/built-in-examples/)
-- [ibrairies]([https://docs.arduino.cc/built-in-examples](https://github.com/arduino-libraries)/)
+- [librairies](https://github.com/arduino-libraries)
 
 - [src](https://create.arduino.cc/projecthub/Raushancpr/arduino-with-ir-sensor-1579b6)
 - [src](https://create.arduino.cc/projecthub/electropeak/use-an-ir-remote-transmitter-and-receiver-with-arduino-1e6bc8)
