@@ -10,12 +10,25 @@
 // tone melodies : https://www.arduino.cc/en/Tutorial/BuiltInExamples/toneMelody
 // builtin-examples : https://docs.arduino.cc/built-in-examples/
 
+
+
+/*
+Calling the package dependencies of the code
+*/
 #include "pitches.h"
 #include <IRremote.hpp>
 
+
+/*
+Defining the pin adresses location of each device which would be remoted -> You should look to your arduino board to define them.
+*/
 const int IRSensor = 11; // connect ir sensor to arduino pin 11
 const int Speaker = 8;   // conect Speaker to arduino pin 8
 
+
+/*
+Defining the touchs' remote adresses after testing each touch with the serial Monitor furnished with the Arduino Code Editor software
+*/
 // Remote Touches
 // const int DEAD = 0;
 // const int BUTTONHOLD = -1;
@@ -40,17 +53,26 @@ const int SIX = 90;
 const int SEVEN = 66;
 const int EIGHT = 82;
 const int NINE = 74;
-
+/*
+Defining a melody with two tables: 
+                                 - melody[] : this table contain each notes which will be played in the melody
+                                 - noteDurations[] : this table contain each duration time associated to the notes which will be played in the melody
+*/
 // notes in the melody:
 int melody[] = {
-
-    NOTE_C4, NOTE_G3, NOTE_G3, NOTE_A3, NOTE_G3, 0, NOTE_B3, NOTE_C4};
+    NOTE_C4, NOTE_G3, NOTE_G3, NOTE_A3, NOTE_G3, 0, NOTE_B3, NOTE_C4
+};
 
 // note durations: 4 = quarter note, 8 = eighth note, etc.:
 int noteDurations[] = {
+    4, 8, 8, 4, 4, 4, 4, 4
+};
 
-    4, 8, 8, 4, 4, 4, 4, 4};
-
+/*
+Defining another melody called star wars with two tables: 
+                                 - StartwarsMelody[] : this table contain each notes which will be played in the melody
+                                 - StartwarsNoteDurations[] : this table contain each duration time associated to the notes which will be played in the melody
+*/
 // https://www.musicnotes.com/sheetmusic/mtd.asp?ppn=MN0127456
 int StartwarsMelody[] = {
     NOTE_D3, NOTE_D3, NOTE_D3, NOTE_G3, NOTE_D4, NOTE_C4, NOTE_B3, NOTE_A3,
@@ -67,21 +89,32 @@ int StartwarsNoteDurations[] = {6, 6, 6, 2, 2, 6, 6, 6, 2, 4, 6, 6, 6, 2,
                                 6, 6, 6, 2, 4, 6, 6, 6, 2, 4, 4, 4, 4, 6,
                                 6, 6, 6, 6, 6, 6, 4, 4, 4, 4, 4};
 
+// Defining constant variable for the single notes which are played on the others touches on the remote from 0 to 9
 const int noteDuration_ = 1000 / 4;
 const int pauseBetweenNotes_ = noteDuration_ * 1.30;
 
+// Defining action in the one lap programm which runs at the IO of the Arduino 
 void setup() {
+  // Initializing the serial connection
   Serial.begin(9600);
+    
+  // Initializing the IR receiver connection
   IrReceiver.begin(IRSensor, ENABLE_LED_FEEDBACK);
 }
 
+// Defining action in the infinit lap programm which runs after the IO of the Arduino and thus after the setup() programm.
 void loop() {
-  if (IrReceiver.decode()) {
+  
+    // If the IR receiver decode 'something = bus data from the IRremote' ->  from the bus data, slice it and give it only the adress command (adress of the touch pressed)  if (IrReceiver.decode()) {
+    // print the value of the decoded touch adress
+    // Stop the reception of the IR receiver  (close the eye) -> It is mandatory else the IR receiver will still wait another data and still decode but data.
     Serial.println("AFFICHE VALEUR");
     int value = IrReceiver.decodedIRData.command;
     Serial.println(value);
     IrReceiver.stop(); // Receive the next value
       
+      
+    //Defining a switch case in order to define action linked to the adress of each touch
     Serial.println("DEBUT DU CASE SWITCH");
     switch (value) {
     // Backward key is used for left key operation
