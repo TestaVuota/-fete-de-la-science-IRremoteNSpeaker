@@ -17,8 +17,8 @@ const int IRSensor = 11; // connect ir sensor to arduino pin 11
 const int Speaker = 8;   // conect Speaker to arduino pin 8
 
 // Remote Touches
-const int DEAD = 0;
-const int BUTTONHOLD = -1;
+// const int DEAD = 0;
+// const int BUTTONHOLD = -1;
 const int ONOFF = 69;
 const int VOLUP = 70;
 const int VOLDOWN = 21;
@@ -77,15 +77,14 @@ void setup() {
 
 void loop() {
   if (IrReceiver.decode()) {
+    Serial.println("AFFICHE VALEUR");
     int value = IrReceiver.decodedIRData.command;
-    Serial.print("AFFICHE VALEUR\n");
     Serial.println(value);
-    Serial.print("DEBUT DU CASE SWITCH\n");
-    switch (value) {
-
-    // Backward key is used for left key operation
     IrReceiver.stop(); // Receive the next value
-
+      
+    Serial.println("DEBUT DU CASE SWITCH");
+    switch (value) {
+    // Backward key is used for left key operation
     case BUTTONHOLD:
       Serial.print("BUTTONHOLD\n");
       break;
@@ -97,7 +96,6 @@ void loop() {
 
         int pauseBetweenNotes = noteDuration * 1.30;
         delay(pauseBetweenNotes);
-        noTone(Speaker);
       }
       break;
     case VOLUP:
@@ -125,7 +123,6 @@ void loop() {
 
         int pauseBetweenNotes = noteDuration * 1.30;
         delay(pauseBetweenNotes);
-        noTone(Speaker);
       }
       break;
     case UP:
